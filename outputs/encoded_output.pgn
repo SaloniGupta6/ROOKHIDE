@@ -1,0 +1,11 @@
+[Event "Encoded Game"]
+[Site "?"]
+[Date "2025.03.21"]
+[Round "?"]
+[White "Player1"]
+[Black "Player2"]
+[Result "*"]
+[Seed "134890"]
+[DataBitLength "112"]
+
+1. Nh3 e5 2. d4 Qg5 3. g4 a6 4. c3 Qf6 5. a4 b6 6. Ng1 Qf5 7. Bg2 h5 8. Qd3 c5 9. dxe5 Qxe5 10. Bf1 Be7 11. Nd2 d6 12. Qh3 Bb7 *
