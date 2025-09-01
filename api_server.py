@@ -13,6 +13,15 @@ from flask_cors import CORS
 
 # Create a minimal Flask app
 app = Flask(__name__)
+
+@app.route("/", methods=["GET"])
+def index():
+    """Root route for Render deployment"""
+    return jsonify({
+        "status": "ok",
+        "message": "Welcome to Rookhide API",
+        "docs": "/api/health for health check"
+    })
 CORS(app)
 
 # In-memory storage for demo
@@ -42,6 +51,14 @@ def health_check():
             "coinbase_wallet": True
         }
     })
+
+@app.route("/")
+def home():
+    return {
+        "status": "ok",
+        "message": "Welcome to Rookhide API",
+        "docs": "/api/health"
+    }
 
 @app.route("/api/wallet/connect", methods=["POST"])
 def connect_wallet():
