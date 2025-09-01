@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+
+# macOS system files
+.DS_Store
+
+# Node modules (for frontend)
+frontend/node_modules/
+
+# Uploads & outputs
+uploads/
+outputs/
+
+# IDE/project settings
+.vscode/
+.idea/
