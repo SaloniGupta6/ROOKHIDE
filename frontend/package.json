@@ -1,6 +1,7 @@
 {
   "name": "chess-steganography-dapp",
   "version": "1.0.0",
+  "homepage": ".",
   "description": "Decentralized Chess Steganography Application",
   "private": true,
   "dependencies": {
