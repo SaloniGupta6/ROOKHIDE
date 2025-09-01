@@ -8,25 +8,18 @@ import json
 import uuid
 import hashlib
 from datetime import datetime, timedelta
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory, Response
 from flask_cors import CORS
 
 # Create a minimal Flask app
-app = Flask(__name__)
-
-@app.route("/", methods=["GET"])
-def index():
-    """Root route for Render deployment"""
-    return jsonify({
-        "status": "ok",
-        "message": "Welcome to Rookhide API",
-        "docs": "/api/health for health check"
-    })
+app = Flask(__name__, static_folder="backend_static", static_url_path="")
 CORS(app)
+
 
 # In-memory storage for demo
 transaction_store = {}
 pgn_metadata_store = {}
+
 
 def generate_transaction_id():
     """Generate a unique transaction ID"""
@@ -34,8 +27,21 @@ def generate_transaction_id():
 
 def validate_wallet_signature(wallet_address, signature, message):
     """Validate wallet signature (placeholder - implement actual validation)"""
-    # In production, implement proper signature validation
     return len(wallet_address) > 20 and len(signature) > 50
+
+@app.route("/", methods=["GET"])
+def serve_frontend():
+    """Serve React index.html"""
+    return send_from_directory(app.static_folder, "index.html")
+
+@app.route("/<path:path>", methods=["GET"])
+def serve_react_router(path):
+    """Catch-all route for React Router"""
+    if os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, "index.html")
+
 
 @app.route("/api/health", methods=["GET"])
 def health_check():
@@ -56,7 +62,6 @@ def health_check():
 
 @app.route("/api/wallet/connect", methods=["POST"])
 def connect_wallet():
-    """Handle Coinbase Wallet connection"""
     try:
         data = request.get_json()
         wallet_address = data.get('wallet_address')
@@ -66,11 +71,9 @@ def connect_wallet():
         if not all([wallet_address, signature, message]):
             return jsonify({"error": "Missing wallet credentials"}), 400
         
-        # Validate signature (implement proper validation in production)
         if not validate_wallet_signature(wallet_address, signature, message):
             return jsonify({"error": "Invalid wallet signature"}), 401
         
-        # Generate session token
         session_token = generate_transaction_id()
         
         return jsonify({
@@ -86,14 +89,12 @@ def connect_wallet():
 
 @app.route("/api/payment/initiate", methods=["POST"])
 def initiate_payment():
-    """Initiate X402 micropayment for encoding/decoding"""
     try:
         data = request.get_json()
         wallet_address = data.get('wallet_address')
-        operation = data.get('operation')  # 'encode' or 'decode'
+        operation = data.get('operation')
         file_hash = data.get('file_hash')
         
-        # Validate required parameters
         if not wallet_address:
             return jsonify({
                 "error": "Wallet address required",
@@ -122,24 +123,16 @@ def initiate_payment():
                 "message": "Operation must be either 'encode' or 'decode'"
             }), 400
         
-        # Generate transaction ID
         transaction_id = generate_transaction_id()
-        
-        # X402 micropayment amounts (in wei)
-        payment_amounts = {
-            "encode": "2000000000000000",  # 0.002 ETH for encoding
-            "decode": "1000000000000000"   # 0.001 ETH for decoding
-        }
-        
+        payment_amounts = {"encode": "2000000000000000", "decode": "1000000000000000"}
         payment_amount = payment_amounts[operation]
         
-        # Store transaction details
         transaction_store[transaction_id] = {
             "wallet_address": wallet_address,
             "operation": operation,
             "file_hash": file_hash,
             "amount": payment_amount,
-            "amount_eth": float(int(payment_amount) / 1e18),  # Convert to ETH for display
+            "amount_eth": float(int(payment_amount) / 1e18),
             "status": "pending",
             "created_at": datetime.now().isoformat(),
             "expires_at": (datetime.now() + timedelta(minutes=15)).isoformat(),
@@ -155,8 +148,8 @@ def initiate_payment():
             "payment_amount": payment_amount,
             "payment_amount_eth": float(int(payment_amount) / 1e18),
             "operation": operation,
-            "payment_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c6C87",  # X402 payment address
-            "expires_in": 900,  # 15 minutes
+            "payment_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c6C87",
+            "expires_in": 900,
             "x402_protocol": "v1.0",
             "message": f"X402 micropayment required for {operation} operation"
         })
@@ -171,7 +164,6 @@ def initiate_payment():
 
 @app.route("/api/payment/verify", methods=["POST"])
 def verify_payment():
-    """Verify X402 micropayment completion"""
     try:
         data = request.get_json()
         transaction_id = data.get('transaction_id')
@@ -183,16 +175,11 @@ def verify_payment():
         if transaction_id not in transaction_store:
             return jsonify({"error": "Invalid transaction ID"}), 404
         
-        # In production, verify the actual blockchain transaction
-        # For demo, we'll simulate verification
         transaction = transaction_store[transaction_id]
-        
-        # Check if transaction hasn't expired
         expires_at = datetime.fromisoformat(transaction["expires_at"])
         if datetime.now() > expires_at:
             return jsonify({"error": "Transaction expired"}), 400
         
-        # Update transaction status
         transaction_store[transaction_id]["status"] = "confirmed"
         transaction_store[transaction_id]["tx_hash"] = tx_hash
         transaction_store[transaction_id]["confirmed_at"] = datetime.now().isoformat()
@@ -206,6 +193,8 @@ def verify_payment():
     except Exception as e:
         app.logger.error(f"Payment verification error: {str(e)}")
         return jsonify({"error": "Payment verification failed"}), 500
+
+
 
 @app.route("/api/encode", methods=["POST"])
 def encode_file():
