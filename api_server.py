@@ -52,13 +52,7 @@ def health_check():
         }
     })
 
-@app.route("/")
-def home():
-    return {
-        "status": "ok",
-        "message": "Welcome to Rookhide API",
-        "docs": "/api/health"
-    }
+
 
 @app.route("/api/wallet/connect", methods=["POST"])
 def connect_wallet():
