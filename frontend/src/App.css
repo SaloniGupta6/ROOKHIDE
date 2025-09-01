@@ -1,0 +1,55 @@
+/* App-specific styles */
+.App {
+  text-align: center;
+}
+
+.chess-piece {
+  font-size: 2rem;
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+.steganography-demo {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+
+.blockchain-badge {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+.x402-payment {
+  border: 2px solid #ffd700;
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  color: #333;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+.chess-moves {
+  font-family: 'Courier New', monospace;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid #28a745;
+  margin: 1rem 0;
+}
+
+.hidden-data-indicator {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+}

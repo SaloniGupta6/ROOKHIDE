@@ -1,0 +1,22 @@
+[Event "Encoded Game"]
+[Site "?"]
+[Date "2025.08.30"]
+[Round "?"]
+[White "Player1"]
+[Black "Player2"]
+[Result "*"]
+[Seed "310811"]
+[DataBitLength "360"]
+
+1. g3 a5 2. a3 f6 3. Nf3 d5 4. Ne5 Nh6 5. Nf7 Ra7 6. c3 Be6 7. Ng5 Nc6 8. f4 Ra8 9. Ra2 Nb8 10. Nh3 Nf5 11. Qc2 Qc8 12. e3 Qd7 13. Ng1 Bf7 14. Be2 g5 15. Qb3 Qc8 16. Bc4 b6 17. Nh3 Bg6 18. Qa4+ Qd7 19. Ba6 d4 20. cxd4 Rxa6 21. Ra1 e6 22. Kd1 Kf7 23. Kc2 Qe7 24. Rd1 Nh4+ 25. f5 exf5 *
+
+[Event "Encoded Game"]
+[Site "?"]
+[Date "2025.08.30"]
+[Round "2"]
+[White "Player1"]
+[Black "Player2"]
+[Result "*"]
+[Seed "264195"]
+
+1. g4 a5 2. e4 Nc6 3. b3 Nf6 4. Ba6 h5 5. Na3 Rh7 6. Nf3 Nd4 7. Nc4 Nxf3+ 8. Qxf3 Rb8 9. Ne5 b5 10. Qf4 Bb7 11. Kd1 g6 12. Rf1 Bh6 13. Nxd7 Bc8 14. Qd6 Ra8 15. Qxf6 Be3 16. Bxc8 c5 17. Ba3 b4 18. Qf4 f5 19. h3 *

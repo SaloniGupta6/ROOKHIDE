@@ -20,25 +20,32 @@ def read_input_file(file_path: str) -> List[int]:
         raise ValueError("Input file is empty")
     return file_bytes
 def extract_bits(file_bytes: List[int], bit_index: int, bits_to_extract: int) -> str:
-    current_byte = file_bytes[bit_index // 8]
-    bit_offset = bit_index % 8
-    if bit_offset + bits_to_extract <= 8:
-        mask = (1 << bits_to_extract) - 1
-        shift = 8 - bit_offset - bits_to_extract
-        bits = format((current_byte >> shift) & mask, f'0{bits_to_extract}b')
-    else:
-        bits_from_first = 8 - bit_offset
-        bits_from_second = bits_to_extract - bits_from_first
-        first_mask = (1 << bits_from_first) - 1
-        first_bits = current_byte & first_mask
-        if bit_index // 8 + 1 < len(file_bytes):
-            next_byte = file_bytes[bit_index // 8 + 1]
-            second_mask = ((1 << bits_from_second) - 1) << (8 - bits_from_second)
-            second_bits = (next_byte & second_mask) >> (8 - bits_from_second)
-            bits = format((first_bits << bits_from_second) | second_bits, f'0{bits_to_extract}b')
+    """Extract bits from file bytes starting at bit_index"""
+    total_bits = len(file_bytes) * 8
+    if bit_index >= total_bits:
+        return '0' * bits_to_extract
+    
+    # Limit bits_to_extract to available bits
+    available_bits = total_bits - bit_index
+    bits_to_extract = min(bits_to_extract, available_bits)
+    
+    result_bits = ""
+    current_bit_index = bit_index
+    
+    for _ in range(bits_to_extract):
+        byte_index = current_bit_index // 8
+        bit_offset = current_bit_index % 8
+        
+        if byte_index < len(file_bytes):
+            # Extract bit from MSB to LSB (left to right)
+            bit_value = (file_bytes[byte_index] >> (7 - bit_offset)) & 1
+            result_bits += str(bit_value)
         else:
-            bits = format(first_bits, f'0{bits_from_first}b').ljust(bits_to_extract, '0')
-    return bits
+            result_bits += '0'
+        
+        current_bit_index += 1
+    
+    return result_bits
 def create_game_record(board: Board, seed: int, expiry_time: Optional[int] = None,
                        custom_headers: Optional[Dict[str, str]] = None, data_bit_length: Optional[int] = None) -> str:
     game = pgn.Game()

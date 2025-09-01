@@ -1,0 +1,11 @@
+[Event "Encoded Game"]
+[Site "?"]
+[Date "2025.09.01"]
+[Round "?"]
+[White "Player1"]
+[Black "Player2"]
+[Result "*"]
+[Seed "696962"]
+[DataBitLength "184"]
+
+1. c3 f6 2. a3 d6 3. b4 h5 4. f4 Nd7 5. Qb3 c5 6. d4 Nb6 7. f5 Nh6 8. h3 a5 9. Rh2 Bxf5 10. Qd5 Nxd5 11. e4 g6 12. Bd3 Ne3 13. e5 h4 14. bxa5 Nd5 15. Kf1 Ng4 16. a6 e6 17. a4 Rxa6 18. Ba3 Rg8 19. Nd2 Be4 20. Bb1 g5 21. exf6 Qxf6+ *

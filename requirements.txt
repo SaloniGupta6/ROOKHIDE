@@ -1,0 +1,18 @@
+# Core Flask dependencies
+Flask==2.3.3
+Flask-CORS==4.0.0
+Werkzeug==2.3.7
+
+# Chess library
+python-chess==1.999
+
+# Cryptography and security
+cryptography==41.0.4
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+
+# Development dependencies
+pytest==7.4.2
+pytest-flask==1.2.0

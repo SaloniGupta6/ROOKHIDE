@@ -1,0 +1,22 @@
+[Event "Full App Test"]
+[Site "?"]
+[Date "2025.08.30"]
+[Round "?"]
+[White "TestUser"]
+[Black "ChessCrypt"]
+[Result "*"]
+[Seed "269097"]
+[DataBitLength "280"]
+
+1. a4 Nh6 2. g3 Nf5 3. h3 Nh4 4. c4 c5 5. f4 h5 6. b4 f5 7. g4 Ng2+ 8. Bxg2 d6 9. Na3 g5 10. gxh5 b5 11. h4 Ba6 12. cxb5 Kf7 13. Nc2 Bxb5 14. Ra2 Be8 15. d3 gxh4 16. bxc5 h3 17. Rxh3 Qa5+ 18. Kf2 Bb5 19. h6 Qd8 20. Na1 Ke8 21. Kf3 Bg7 22. cxd6 a5 23. h7 Bc4 24. Rh5 Bd5+ 25. Kf2 Rxh7 *
+
+[Event "Full App Test"]
+[Site "?"]
+[Date "2025.08.30"]
+[Round "2"]
+[White "TestUser"]
+[Black "ChessCrypt"]
+[Result "*"]
+[Seed "354784"]
+
+1. g4 c6 2. Nc3 e5 3. Nd5 Nh6 4. c4 b6 5. Bg2 Rg8 6. Rb1 Bc5 7. Nb4 Ba6 8. Nxc6 Qe7 *
